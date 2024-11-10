@@ -4,6 +4,7 @@ import time
 import pandas as pd
 
 links_of_products_csv= "scraped_links.csv"
+products_save_file="laptop_details.csv"
 
 def collect_product_data(link):
     driver = webdriver.Chrome()
@@ -41,12 +42,12 @@ def collect_product_data(link):
     df = pd.DataFrame([data])
 
     # Append the row to the CSV file without headers or indexes
-    df.to_csv("laptop_details.csv", mode='a', index=False, header=False)
+    df.to_csv(products_save_file, mode='a', index=False, header=False)
 
     driver.quit()
 
 
-df = pd.read_csv("scraped_links.csv", usecols=[0])
+df = pd.read_csv(links_of_products_csv, usecols=[0])
 base_url="https://www.ouedkniss.com"
 for i in range(1536,len(df)):
     url=base_url+df.iloc[i,0]
